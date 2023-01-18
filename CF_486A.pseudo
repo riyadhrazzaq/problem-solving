@@ -1,0 +1,22 @@
+// initiate
+n <- "5463432343"
+i <- 0
+d <- ""
+r <- 0
+q <- ""
+divisor <- 2
+// tracks i
+lastDivAt <- 0
+while i < n.length
+    d += r
+    d += n[i]
+    if (d >= divisor)
+        lastDivAt = i
+        q += (int) d / divisor
+        r = (int) d % divisor
+    else if ((i - lastDivAt) > 1)
+        q += 0
+    i++
+        
+
+    
