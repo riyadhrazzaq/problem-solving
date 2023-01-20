@@ -3,13 +3,41 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_148A {
 
     public void run() throws IOException {
         // WRITE YOUR CODE HERE
-        out.close();
+        int k = nextInt();
+        int l = nextInt();
+        int m = nextInt();
+        int n = nextInt();
+        int d = nextInt();
+        if (k == 1 || l == 1 || m == 1 || n == 1) {
+            System.out.println(d);
+            return;
+        }
+
+        int i = 0;
+        HashSet<Integer> store = new HashSet<>();
+        for (i = k; i <= d; i += k) {
+            store.add(i);
+        }
+        for (i = l; i <= d; i += l) {
+            store.add(i);
+        }
+        for (i = m; i <= d; i += m) {
+            store.add(i);
+        }
+        for (i = n; i <= d; i += n) {
+            store.add(i);
+        }
+
+        // toString(store);
+
+        out.println(store.size());
     }
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -64,8 +92,12 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_148A m = new CF_148A();
         m.test();
         m.run();
+        m.run();
+        m.run();
+        m.run();
+        m.out.close();
     }
 }

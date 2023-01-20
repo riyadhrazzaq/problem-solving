@@ -3,13 +3,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_228A {
 
     public void run() throws IOException {
         // WRITE YOUR CODE HERE
-        out.close();
+        HashSet<Integer> set = new HashSet<>(4, 1);
+        set.add(nextInt());
+        set.add(nextInt());
+        set.add(nextInt());
+        set.add(nextInt());
+
+        System.out.println(4 - set.size());
     }
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,16 +52,7 @@ public class Template {
         return Long.parseLong(nextToken());
     }
 
-    public <T extends Object> void toString(Iterable<T> iterable) {
-        System.out.print("[");
-        for (T t : iterable) {
-            System.out.print(t + ", ");
-        }
-        System.out.println("]");
-    }
-
     public void test() {
-
         try {
             br = new BufferedReader(new FileReader(this.getClass().getSimpleName() + ".test"));
 
@@ -64,8 +62,9 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_228A m = new CF_228A();
         m.test();
         m.run();
+        m.out.close();
     }
 }
