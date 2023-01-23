@@ -5,12 +5,35 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_1535A {
 
-    /**
-     * write your solution
-     */
-    public void run() throws IOException {}
+    public void run() throws IOException {
+        int t = nextInt();
+        for (int i = 0; i < t; i++) {
+            int max1 = -1, max2 = -2;
+            int s1 = nextInt();
+            int s2 = nextInt();
+            int s3 = nextInt();
+            int s4 = nextInt();
+
+            int f1 = (s1 > s2) ? s1 : s2;
+            int f2 = (s3 > s4) ? s3 : s4;
+
+            if (s1 > max1) max1 = s1;
+            if (s2 > max1) max1 = s2;
+            if (s3 > max1) max1 = s3;
+            if (s4 > max1) max1 = s4;
+
+            if (s1 < max1 && s1 > max2) max2 = s1;
+            if (s2 < max1 && s2 > max2) max2 = s2;
+            if (s3 < max1 && s3 > max2) max2 = s3;
+            if (s4 < max1 && s4 > max2) max2 = s4;
+
+            if ((f1 == max1 || f1 == max2) && (f2 == max1 || f2 == max2)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        out.close();
+    }
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     PrintWriter out = new PrintWriter(System.out);
@@ -64,9 +87,8 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_1535A m = new CF_1535A();
         m.test();
         m.run();
-        m.out.close();
     }
 }

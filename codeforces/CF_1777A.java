@@ -5,12 +5,33 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_1777A {
 
     /**
      * write your solution
      */
-    public void run() throws IOException {}
+    public void run() throws IOException {
+        int t = nextInt();
+        int a = -1, n = -1, lastOdd = -1, count = 0;
+        while (t-- > 0) {
+            n = nextInt();
+            // reset
+            lastOdd = -1;
+            count = 0;
+
+            // take the first input here to avoid
+            // a conditional inside loop
+            a = nextInt();
+            lastOdd = a & 1;
+            n--;
+            while (n-- > 0) {
+                a = nextInt();
+                if ((a & 1) == lastOdd) count++;
+                lastOdd = a & 1;
+            }
+            System.out.println(count);
+        }
+    }
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     PrintWriter out = new PrintWriter(System.out);
@@ -64,9 +85,8 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_1777A m = new CF_1777A();
         m.test();
         m.run();
-        m.out.close();
     }
 }
