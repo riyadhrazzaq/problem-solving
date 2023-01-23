@@ -1,0 +1,22 @@
+5
+1
+2
+3
+4
+100
+
+# Pseudocode
+n <- the number
+m <- 1
+modby <- 1000000007
+factorial <- 1
+for i = 2 .. n
+   m <- i % modby
+   factorial <- factorial * m
+
+factorial <- factorial % modby
+factorial <- factorial * factorial
+return factorial % modby
+
+------------
+0 + 1 + 2 + ... 99
