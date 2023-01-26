@@ -5,12 +5,24 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_1353C {
 
     /**
      * write your solution
      */
-    public void run() throws IOException {}
+    public void run() throws IOException {
+        int t = nextInt();
+        while (t-- > 0) {
+            long n = (long) Math.floor(nextInt() / 2.0);
+            long coeff = 0;
+            while (n > 0) {
+               coeff += (n * n);
+               n--;
+            }
+            coeff *= 8l;
+            printf("%s\n",coeff);
+        }
+    }
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     PrintWriter out = new PrintWriter(System.out);
@@ -45,24 +57,22 @@ public class Template {
         return Long.parseLong(nextToken());
     }
 
-    private void printf(String format, String... params) {
-        System.out.println(
+    public <T extends Object> void toString(Iterable<T> iterable) {
+        System.out.print("[");
+        for (T t : iterable) {
+            System.out.print(t + ", ");
+        }
+        System.out.println("]");
+    }
+
+
+    private void printf(String format, Object... params) {
+        System.out.print(
                 String.format(
                     format,
                     (Object[]) params
                     )
                 );
-    }
-    public <T extends Object> String toString(Iterable<T> iterable) {
-        StringBuilder sb = new StringBuilder("[");
-        for (T t : iterable) {
-            sb.append(t)
-                .append(", ");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
     }
 
     public void test() {
@@ -76,7 +86,7 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_1353C m = new CF_1353C();
         m.test();
         m.run();
         m.out.close();

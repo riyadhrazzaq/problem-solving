@@ -5,12 +5,24 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Template {
+public class CF_1353A {
 
     /**
      * write your solution
      */
-    public void run() throws IOException {}
+    public void run() throws IOException {
+       int t = nextInt() ;
+       while (t-- > 0)  {
+            System.out.println(solve(nextInt(),nextInt()));
+       }
+    }
+
+    long solve(int n, int m) {
+        if (n == 1) return 0l;
+        if (n == 2) return (long) m;
+        return m * 2;
+    }
+
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     PrintWriter out = new PrintWriter(System.out);
@@ -45,24 +57,12 @@ public class Template {
         return Long.parseLong(nextToken());
     }
 
-    private void printf(String format, String... params) {
-        System.out.println(
-                String.format(
-                    format,
-                    (Object[]) params
-                    )
-                );
-    }
-    public <T extends Object> String toString(Iterable<T> iterable) {
-        StringBuilder sb = new StringBuilder("[");
+    public <T extends Object> void toString(Iterable<T> iterable) {
+        System.out.print("[");
         for (T t : iterable) {
-            sb.append(t)
-                .append(", ");
+            System.out.print(t + ", ");
         }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
+        System.out.println("]");
     }
 
     public void test() {
@@ -76,7 +76,7 @@ public class Template {
     }
 
     public static void main(String[] args) throws IOException {
-        Template m = new Template();
+        CF_1353A m = new CF_1353A();
         m.test();
         m.run();
         m.out.close();
