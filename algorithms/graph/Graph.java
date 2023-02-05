@@ -15,9 +15,10 @@ public class Graph {
 
     private Map<String, Integer> color = new HashMap<>();
     private Map<String, Integer> distance = new HashMap<>();
+    private Map<String, Integer> ftime = new HashMap<>();
     private Map<String, String> parent = new HashMap<>();
 
-    int GRAY = 1, WHITE = 0, BLACK = 2;
+    int GRAY = 1, WHITE = 0, BLACK = 2, time = 0;
     /**
      * visit nodes starting from `src`.
      * loop invariant of this algorithm: at any given time, queue will
@@ -66,6 +67,45 @@ public class Graph {
         return response;
     }
 
+    public List<Pair> dfs(String srcVertex) {
+        // initiate all as unvisited
+        for (String vertex : this.vertices) {
+            color.put(vertex, WHITE);
+            distance.put(vertex, 0);
+            parent.put(vertex, null);
+        }
+        time = 0;
+
+        for (String vertex : this.vertices) {
+            if (color.get(vertex) == WHITE) dfsVisit(vertex);
+        }
+
+        List<Pair> response = new ArrayList<>();
+        color.forEach(
+                (k, v) -> {
+                    if (v == BLACK) {
+                        response.add(new Pair(k, ftime.get(k)));
+                    }
+                });
+
+        return response;
+    }
+
+    private void dfsVisit(String u) {
+        time++;
+        distance.put(u, time);
+        color.put(u, GRAY);
+        for (Edge v : this.edges.get(u)) {
+
+            if (color.get(v.vertex()) == WHITE) {
+                parent.put(v.vertex(), u);
+                dfsVisit(v.vertex());
+            }
+
+            color.put(u, BLACK);
+            ftime.put(u, ++time);
+        }
+    }
     /**
      * add vertices to the graph
      */
@@ -133,21 +173,28 @@ public class Graph {
     public static void main(String[] args) {
         Graph g = new Graph();
         g.addVertices("x", "y", "z", "u", "v", "w");
-        g.addEdge("u", "x", 1, false);
-        g.addEdge("u", "v", 1, false);
-        g.addEdge("x", "v", 1, false);
-        g.addEdge("v", "y", 1, false);
-        g.addEdge("y", "x", 1, false);
-        g.addEdge("w", "y", 1, false);
-        g.addEdge("w", "z", 1, false);
-        g.addEdge("z", "z", 1, false);
+        g.addEdge("u", "x", 1, true);
+        g.addEdge("u", "v", 1, true);
+        g.addEdge("x", "v", 1, true);
+        g.addEdge("v", "y", 1, true);
+        g.addEdge("y", "x", 1, true);
+        g.addEdge("w", "y", 1, true);
+        g.addEdge("w", "z", 1, true);
+        g.addEdge("z", "z", 1, true);
 
         g.print();
 
-        List<Pair> walk = g.bfs("u");
+        // System.out.println("\n-------BFS--------");
+        // List<Pair> walk = g.bfs("u");
+        // walk.forEach(it -> System.out.println(it));
+
+        // g.printPath("u", "w");
+
+        System.out.println("\n-------DFS--------");
+        List<Pair> walk = g.dfs("u");
         walk.forEach(it -> System.out.println(it));
 
-        g.printPath("u", "w");
+        g.printPath("u", "y");
         System.out.println();
     }
 }

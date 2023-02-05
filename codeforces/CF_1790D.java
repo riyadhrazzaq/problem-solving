@@ -3,12 +3,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
-public class CF_1353D {
+public class CF_1790D {
 
     /**
      * write your solution
@@ -16,59 +15,32 @@ public class CF_1353D {
     public void run() throws IOException {
         int t = nextInt();
         while (t-- > 0) {
-            int n = nextInt();
-            int[] a = new int[n];
-            Arrays.fill(a, 0);
+            int n = nextInt(), i = 0;
+            TreeMap<Integer, Integer> dist = new TreeMap<>();
 
-            PriorityQueue<Range> mem =
-                    new PriorityQueue<>(
-                            new Comparator<Range>() {
-                                public int compare(Range r1, Range r2) {
-                                    int len = -r1.length() + r2.length();
-                                    if (len != 0) return len;
-                                    else {
-                                        return r1.start() - r2.start();
-                                    }
-                                }
-                            });
-
-            mem.add(new Range(0, n - 1));
-            int i = 0, mid = -1;
-            Range range;
-            while (!mem.isEmpty() && ++i <= n) {
-                range = mem.poll();
-                mid = range.mid();
-                a[mid] = i;
-                // printf(
-                // "i %s, range %s, mid %s, a[%s] = %s",
-                // String.valueOf(i),
-                // range.toString(),
-                // String.valueOf(mid),
-                // String.valueOf(mid),
-                // String.valueOf(a[mid]));
-                if (range.start() <= (mid - 1)) mem.add(new Range(range.start, mid - 1));
-                if ((mid + 1) <= range.end) mem.add(new Range(mid + 1, range.end));
+            int x = 0;
+            for (i = 0; i < n; i++) {
+                x = nextInt();
+                if (dist.containsKey(x)) {
+                    dist.put(x, dist.get(x) + 1);
+                } else dist.put(x, 1);
             }
 
-            toString(a);
-        }
-    }
+            // game of tetris
+            int lastBlockType = -1;
+            int lastBlockSize = 0;
+            for (Map.Entry<Integer, Integer> entry : dist.entrySet()) {
+                // this block should be above `lastBlockType`
+                if (entry.getKey() == lastBlockType + 1) {
+                    // determines how many of the latest blocks will overflow
+                    n = n - Math.min(entry.getValue(), lastBlockSize);
+                }
 
-    public void toString(int[] a) {
-        int k = 0;
-        for (k = 0; k < a.length - 1; k++) {
-            System.out.print(a[k] + " ");
-        }
-        System.out.println(a[k]);
-    }
+                lastBlockSize = entry.getValue();
+                lastBlockType = entry.getKey();
+            }
 
-    public record Range(int start, int end) {
-        public int length() {
-            return end - start + 1;
-        }
-
-        public int mid() {
-            return (int) (start + end) / 2;
+            System.out.println(n);
         }
     }
 
@@ -105,7 +77,7 @@ public class CF_1353D {
         return Long.parseLong(nextToken());
     }
 
-    private void printf(String format, String... params) {
+    private void printf(String format, Object... params) {
         System.out.println(String.format(format, (Object[]) params));
     }
 
@@ -131,7 +103,7 @@ public class CF_1353D {
     }
 
     public static void main(String[] args) throws IOException {
-        CF_1353D m = new CF_1353D();
+        CF_1790D m = new CF_1790D();
         m.test();
         m.run();
         m.out.close();

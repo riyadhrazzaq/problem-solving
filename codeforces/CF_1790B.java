@@ -3,12 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class CF_1353D {
+public class CF_1790B {
 
     /**
      * write your solution
@@ -16,59 +13,14 @@ public class CF_1353D {
     public void run() throws IOException {
         int t = nextInt();
         while (t-- > 0) {
-            int n = nextInt();
-            int[] a = new int[n];
-            Arrays.fill(a, 0);
-
-            PriorityQueue<Range> mem =
-                    new PriorityQueue<>(
-                            new Comparator<Range>() {
-                                public int compare(Range r1, Range r2) {
-                                    int len = -r1.length() + r2.length();
-                                    if (len != 0) return len;
-                                    else {
-                                        return r1.start() - r2.start();
-                                    }
-                                }
-                            });
-
-            mem.add(new Range(0, n - 1));
-            int i = 0, mid = -1;
-            Range range;
-            while (!mem.isEmpty() && ++i <= n) {
-                range = mem.poll();
-                mid = range.mid();
-                a[mid] = i;
-                // printf(
-                // "i %s, range %s, mid %s, a[%s] = %s",
-                // String.valueOf(i),
-                // range.toString(),
-                // String.valueOf(mid),
-                // String.valueOf(mid),
-                // String.valueOf(a[mid]));
-                if (range.start() <= (mid - 1)) mem.add(new Range(range.start, mid - 1));
-                if ((mid + 1) <= range.end) mem.add(new Range(mid + 1, range.end));
+            int n = nextInt(), s = nextInt(), r = nextInt();
+            int others = (int) Math.floor(r / (double) (n - 1));
+            System.out.print((s - r) + " ");
+            int remainder = r % (n - 1);
+            for (int i = 0; i < n - 1; i++) {
+                System.out.print(others + (i < remainder ? 1 : 0) + " ");
             }
-
-            toString(a);
-        }
-    }
-
-    public void toString(int[] a) {
-        int k = 0;
-        for (k = 0; k < a.length - 1; k++) {
-            System.out.print(a[k] + " ");
-        }
-        System.out.println(a[k]);
-    }
-
-    public record Range(int start, int end) {
-        public int length() {
-            return end - start + 1;
-        }
-
-        public int mid() {
-            return (int) (start + end) / 2;
+            System.out.println();
         }
     }
 
@@ -131,7 +83,7 @@ public class CF_1353D {
     }
 
     public static void main(String[] args) throws IOException {
-        CF_1353D m = new CF_1353D();
+        CF_1790B m = new CF_1790B();
         m.test();
         m.run();
         m.out.close();
